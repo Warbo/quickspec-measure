@@ -99,7 +99,7 @@ functions = [
     "not"   `fun1` not,
     "True"  `fun0` True,
     "False" `fun0` False,
-    blind2 "."   ((.) :: (Int -> Int) -> (Int -> Int) -> (Int -> Int)),
+    blind2 "."   ((.) :: (Int -> Int) -> (Int -> Int) -> Int -> Int),
 
   -- Similarly, id is not treated as a function.
   blind0 "id"  (id  :: Int -> Int),

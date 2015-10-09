@@ -1,4 +1,4 @@
-{ nixpkgs ? import <nixpkgs> {}, compiler ? "ghc7101" }:
+{ nixpkgs ? import <nixpkgs> {}, compiler ? "default" }:
 
 let
 
@@ -11,13 +11,17 @@ let
         src = ./.;
         isLibrary = false;
         isExecutable = true;
-        buildDepends = [ array base QuickCheck quickspec ];
+        executableHaskellDepends = [ array base QuickCheck quickspec ];
         homepage = "http://chriswarbo.net/git/quickspec-measure";
         description = "Benchmarking QuickSpec";
         license = stdenv.lib.licenses.publicDomain;
       };
 
-  drv = pkgs.haskell.packages.${compiler}.callPackage f {};
+  haskellPackages = if compiler == "default"
+                      then pkgs.haskellPackages
+                      else pkgs.haskell.packages.${compiler};
+
+  drv = haskellPackages.callPackage f {};
 
 in
 
